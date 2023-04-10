@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:02:57 by kfortin           #+#    #+#             */
-/*   Updated: 2023/03/23 16:21:13 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/10 17:57:37 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 # include "get_next_line.h"
 # include "stdio.h"
 # include "stdlib.h"
+# include "math.h"
 
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
-# define GREEN_PIXEL 0x009FE2BF
+# define WINDOW_WIDTH 2000
+# define WINDOW_HEIGHT 1180
 # define RED_PIXEL 0x00C70039
-# define LIGHT_GREEN_PIXEL 0x00DAF7A6
+# define DARK_RED_PIXEL 0x00581845
+# define GREEN_PIXEL 0x00DAF7A6
+# define LIGHT_BLUE_PIXEL 0x0040E0D0
+# define BLUE_PIXEL 0x006495ED
 
 typedef struct s_list
 {
@@ -34,7 +37,27 @@ typedef struct s_mat
     int     **mat;
     int     size_x;
     int     size_y;
+    int     center_x;
+    int     center_y;
+    int     center_map_x;
+    int     center_map_y;
+    int     deg;
+    double     rad;
+    int     rot;
+    double     rot_rad;
+    int     zoom;
+    int     depth;
+    int     trans_x;
+    int     trans_y;
 }   t_mat;
+
+typedef struct s_coor
+{
+    int y1;
+    int y2;
+    int x1;
+    int x2;
+} t_coor;
 
 typedef struct s_rat
 {
@@ -49,6 +72,9 @@ typedef struct s_rat
     int e;
     int e10;
     int e01;
+    int ang;
+    int color;
+    int flag;
 } t_rat;
 
 typedef struct s_data
@@ -93,9 +119,22 @@ void	ft_write_error();
 int     ft_strcmp(char *s1, char *s2);
 t_list    *ft_mapwid(char *argv, t_mat *mat, t_list *map);
 
-void    ft_fill_coor_struct(t_rat *rat, t_mat *mat);
+double  ft_deg_rad(int deg);
+t_rat *ft_fill_coor_hori(t_rat *rat, t_mat *mat, t_main main);
+t_rat *ft_fill_coor_vert(t_coor *mat_coor, t_rat *rat, t_mat *mat, t_main main);
+t_rat *ft_color(t_rat *rat, t_mat *mat, int x, int y);
 void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void     ft_trace_seg(t_rat *rat, t_main main);
-void    ft_trace_pixel(int x, int y, t_main main);
+void     ft_trace_HB_GD(t_rat *rat, t_main main);
+void     ft_trace_HB_DG(t_rat *rat, t_main main);
+void     ft_trace_BH_GD(t_rat *rat, t_main main);
+void     ft_trace_BH_DG(t_rat *rat, t_main main);
+void     ft_trace_line(int mod, t_coor *mat_coor, t_rat *rat, t_main main);
+void    ft_check_frame(t_rat *rat, t_main main);
+t_rat *ft_test(t_rat *rat, t_mat mat);
+
+t_coor *ft_rotate_coor(t_coor *mat_coor, t_rat *rat, t_mat *mat, int mod);
+int **ft_modif_depth(t_mat *mat);
+
+int my_loop_function(int keycode, t_mat *mat, t_main main, t_rat *rat);
 
 #endif

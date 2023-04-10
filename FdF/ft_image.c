@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:32:55 by kfortin           #+#    #+#             */
-/*   Updated: 2023/03/23 16:21:55 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/10 15:23:47 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,20 @@ void    my_mlx_pixel_put(t_data *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-void    ft_trace_pixel(int x, int y, t_main main)
+void    ft_check_frame(t_rat *rat, t_main main)
 {
-    my_mlx_pixel_put(&main.img, x, y, LIGHT_GREEN_PIXEL);
+    if (rat->x <= WINDOW_WIDTH && rat->y <= WINDOW_HEIGHT)
+    {
+        if (rat->color == -2)
+            my_mlx_pixel_put(&main.img, rat->x, rat->y, GREEN_PIXEL);
+        else if (rat->color == -1)
+            my_mlx_pixel_put(&main.img, rat->x, rat->y, BLUE_PIXEL);
+        else if (rat->color == 2)
+            my_mlx_pixel_put(&main.img, rat->x, rat->y, LIGHT_BLUE_PIXEL);
+        else if (rat->color == 1)
+            my_mlx_pixel_put(&main.img, rat->x, rat->y, RED_PIXEL);
+        else
+            my_mlx_pixel_put(&main.img, rat->x, rat->y, DARK_RED_PIXEL);
+    }
 }
 

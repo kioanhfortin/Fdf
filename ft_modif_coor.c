@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 16:20:04 by kfortin           #+#    #+#             */
-/*   Updated: 2023/04/11 16:47:02 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/12 11:51:12 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_coor *ft_rotate_coor(t_coor *mat_coor, t_rat *rat, t_mat *mat, int mod)
         rot_y = (temp_x * rot_mat[1][0]) + (temp_y * rot_mat[1][1]);
         mat_coor[mod].x2 = rot_x + -mat->center_map_x;
         mat_coor[mod].y2 = rot_y + -mat->center_map_y;
+        //comment test
         // printf("x1 :%d, y1 :%d, x2 :%d, y2 : %d", mat_coor[mod].x1, mat_coor[mod].y1, mat_coor[mod].x2, mat_coor[mod].y2);
     //     i++;
     // }

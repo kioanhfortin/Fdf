@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:47:54 by kfortin           #+#    #+#             */
-/*   Updated: 2023/04/10 17:53:20 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/11 17:01:42 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,22 +288,21 @@ t_rat *ft_fill_coor_hori(t_rat *rat, t_mat *mat, t_main main)
     int mod;
     t_coor  *mat_coor;
 
-    mat->deg = 33;
+    mat->deg = 300;
     mat->zoom = 30;
     mat->rot = 45;
-    mat->depth = -9;
+    mat->depth = -12;
     mat->trans_x = 0;
     mat->trans_y = 0;
     mat = ft_center(mat);
     mat->rad = ft_deg_rad(mat->deg);
-    // mat->mat = ft_modif_depth(mat);
-    ft_print_mat(mat);
+    mat->mat = ft_modif_depth(mat);
     x = 0;
     y = 0;
     mod = 0;
+    mat_coor = ft_init_coor(mat);
     rat = ft_calloc(sizeof(int), 14);
     rat->flag = 1;
-    mat_coor = ft_init_coor(mat);
     while (y < mat->size_y)
     {
         while (x < mat->size_x)
@@ -329,6 +328,7 @@ t_rat *ft_fill_coor_hori(t_rat *rat, t_mat *mat, t_main main)
         x = 0;
         y++;
     }
+    ft_print_mat(mat);
     ft_fill_coor_vert(mat_coor, rat, mat, main);
     return (rat);
 }
@@ -409,7 +409,9 @@ int main(int argc, char **argv)
         // ft_trace_line(rat, main);
         // my_mlx_pixel_put(&main.img, 5, 5, 0x009FE2BF);
         mlx_put_image_to_window(main.mlx, main.mlx_win, main.img.img, 0, 0);
-        mlx_loop_hook(main.mlx, my_loop_function, NULL);
+        // mlx_key_hook(main.mlx_win, &x_translation, NULL);
+        mlx_key_hook(main.mlx_win, &handle_input, NULL);
+        mlx_loop_hook(main.mlx, (int (*)())my_loop_function, &main);
         mlx_loop(main.mlx);
         ft_free_tab2((void **)mat.mat);
     }

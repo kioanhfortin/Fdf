@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:02:57 by kfortin           #+#    #+#             */
-/*   Updated: 2023/04/10 17:57:37 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/11 16:53:01 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ typedef struct s_mat
 
 typedef struct s_coor
 {
-    int y1;
-    int y2;
-    int x1;
-    int x2;
+    double y1;
+    double y2;
+    double x1;
+    double x2;
 } t_coor;
 
 typedef struct s_rat
@@ -135,6 +135,8 @@ t_rat *ft_test(t_rat *rat, t_mat mat);
 t_coor *ft_rotate_coor(t_coor *mat_coor, t_rat *rat, t_mat *mat, int mod);
 int **ft_modif_depth(t_mat *mat);
 
-int my_loop_function(int keycode, t_mat *mat, t_main main, t_rat *rat);
+int x_translation(int keycode, t_mat *mat, t_main main, t_rat *rat);
+int handle_input(int keyCode);
+int my_loop_function(t_main *main);
 
 #endif

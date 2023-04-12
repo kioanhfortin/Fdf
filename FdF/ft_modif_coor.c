@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 16:20:04 by kfortin           #+#    #+#             */
-/*   Updated: 2023/04/10 16:30:40 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/11 16:47:02 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_coor *ft_rotate_coor(t_coor *mat_coor, t_rat *rat, t_mat *mat, int mod)
         rot_y = (temp_x * rot_mat[1][0]) + (temp_y * rot_mat[1][1]);
         mat_coor[mod].x2 = rot_x + -mat->center_map_x;
         mat_coor[mod].y2 = rot_y + -mat->center_map_y;
-        printf("x1 :%d, y1 :%d, x2 :%d, y2 : %d", mat_coor[mod].x1, mat_coor[mod].y1, mat_coor[mod].x2, mat_coor[mod].y2);
+        // printf("x1 :%d, y1 :%d, x2 :%d, y2 : %d", mat_coor[mod].x1, mat_coor[mod].y1, mat_coor[mod].x2, mat_coor[mod].y2);
     //     i++;
     // }
     return (mat_coor);
@@ -69,8 +69,9 @@ int **ft_modif_depth(t_mat *mat)
     {
         while (x < mat->size_x)
         {
+            
             if (mat->mat[y][x] != 0)
-                mat->mat[y][x] = mat->mat[y][x] + mat->depth;
+                mat->mat[y][x] += mat->depth;
             x++;
         }
         x = 0;

@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 14:09:57 by kfortin           #+#    #+#             */
-/*   Updated: 2023/04/12 20:18:50 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/13 15:07:19 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void re_img(t_main  *main)
     mlx_delete_image(main->mlx, main->img);
     main->img = mlx_new_image(main->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
     ft_fill_coor_hori(main);
+    ft_fill_coor_vert(main);
     mlx_image_to_window(main->mlx, main->img, 0, 0);
 }
 

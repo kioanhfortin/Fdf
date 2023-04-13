@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:02:57 by kfortin           #+#    #+#             */
-/*   Updated: 2023/04/12 20:17:42 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/13 15:21:36 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_main
     
     t_rat           rat;
     t_mat           mat;
+    t_coor          *mat_coor;
     // void    *mlx_win;
     // t_data  img;
 } t_main;
@@ -123,10 +124,11 @@ void	ft_error_long(char **tab, int i, int *tab_int);
 void	ft_write_error();
 int     ft_strcmp(char *s1, char *s2);
 t_list    *ft_mapwid(char *argv, t_mat *mat, t_list *map);
+void    ft_clean_rat(t_main *main);
 
 double  ft_deg_rad(int deg);
 void    ft_fill_coor_hori(t_main *main);
-void    ft_fill_coor_vert(t_coor *mat_coor, t_main *main);
+void    ft_fill_coor_vert(t_main *main);
 t_rat *ft_color(t_rat *rat, t_mat *mat, int x, int y);
 void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
 // void     ft_trace_HB_GD(t_rat *rat, t_main main);
@@ -138,7 +140,16 @@ void    ft_check_frame(t_rat *rat, t_main main);
 t_rat *ft_test(t_rat *rat, t_mat mat);
 
 t_coor *ft_rotate_coor(t_coor *mat_coor, t_mat *mat, int mod);
-int **ft_modif_depth(t_mat *mat);
+// int **ft_modif_depth(t_mat *mat);
+void    ft_modif_affichage(t_main *main, int x, int y, int mod);
+void    ft_normal_h(t_main *main, int y, int x, int mod);
+void    ft_depth_modifier_h(t_main *main, int y, int x, int mod);
+void    ft_depth_modifier_h1(t_main *main, int y, int x, int mod);
+void    ft_depth_modifier_h2(t_main *main, int y, int x, int mod);
+void    ft_normal_v(t_main *main, int y, int x, int mod);
+void    ft_depth_modifier_v(t_main *main, int y, int x, int mod);
+void    ft_depth_modifier_v1(t_main *main, int y, int x, int mod);
+void    ft_depth_modifier_v2(t_main *main, int y, int x, int mod);
 
 // int handle_input(int keyCode, t_rat *rat, t_main main, void *param);
 void x_plus_translation(t_main *main);

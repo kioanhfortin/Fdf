@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:47:54 by kfortin           #+#    #+#             */
-/*   Updated: 2023/04/12 20:14:58 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/13 15:28:46 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,20 +218,18 @@ t_mat    ft_parsing(char **argv)
     return(mat);
 }
 
-t_rat   *ft_clean_rat(t_rat *rat)
+void    ft_clean_rat(t_main *main)
 {
-    rat->x = 0;
-    rat->x1 = 0;
-    rat->x2 = 0;
-    rat->y = 0;
-    rat->y1 = 0;
-    rat->y2 = 0;
-    rat->dx = 0;
-    rat->dy = 0;
-    rat->color = 0;
-    return (rat);
+    main->rat.x = 0;
+    main->rat.x1 = 0;
+    main->rat.x2 = 0;
+    main->rat.y = 0;
+    main->rat.y1 = 0;
+    main->rat.y2 = 0;
+    main->rat.dx = 0;
+    main->rat.dy = 0;
+    main->rat.color = 0;
 }
-
 
 void    ft_center(t_main *main)
 {
@@ -286,48 +284,37 @@ void    ft_fill_coor_hori(t_main *main)
     int x;
     int y;
     int mod;
-    t_coor  *mat_coor;
+    // t_coor  *mat_coor;
 
     x = 0;
     y = 0;
     mod = 0;
-    mat_coor = NULL;
-    if (!mat_coor)
-        mat_coor = ft_init_coor(&main->mat);
     main->rat.flag = 1;
     ft_center(main);
     main->mat.rad = ft_deg_rad(main->mat.deg);
-    main->mat.mat = ft_modif_depth(&main->mat);
     while (y < main->mat.size_y)
     {
         while (x < main->mat.size_x)
         {
-            mat_coor[mod].x1 = (x + (cos(main->mat.rad) * main->mat.mat[y][x]));
-            mat_coor[mod].y1 = (y + (sin(main->mat.rad) * main->mat.mat[y][x]));
-            x++;
-            if (x >= main->mat.size_x)
-                break;
-            mat_coor[mod].x2 = (x + (cos(main->mat.rad) * main->mat.mat[y][x]));
-            mat_coor[mod].y2 = (y + (sin(main->mat.rad) * main->mat.mat[y][x]));
-            mat_coor = ft_rotate_coor(mat_coor, &main->mat, mod);
-            mat_coor[mod].x1 = mat_coor[mod].x1 * main->mat.zoom + main->mat.center_x + main->mat.trans_x;
-            mat_coor[mod].y1 = mat_coor[mod].y1 * main->mat.zoom + main->mat.center_y + main->mat.trans_y;
-            mat_coor[mod].x2 = mat_coor[mod].x2 * main->mat.zoom + main->mat.center_x + main->mat.trans_x;
-            mat_coor[mod].y2 = mat_coor[mod].y2 * main->mat.zoom + main->mat.center_y + main->mat.trans_y;
-            main->rat = *ft_color(&main->rat, &main->mat, x, y);
-            ft_trace_line(mod, mat_coor, &main->rat, *main);
-            main->rat = *ft_clean_rat(&main->rat);
+            if(main->mat.mat[y][x] != 0 && main->mat.mat[y][x + 1] != 0)
+                ft_depth_modifier_h(main, y, x, mod);
+            else if (main->mat.mat[y][x] == 0 && main->mat.mat[y][x + 1] != 0)
+                ft_depth_modifier_h1(main, y, x, mod);
+            else if (main->mat.mat[y][x] != 0 && main->mat.mat[y][x + 1] == 0)
+                ft_depth_modifier_h2(main, y, x, mod);
+            else
+                ft_normal_h(main, y, x, mod);
             mod++;
+            x++;
         }
         mod++;
         x = 0;
         y++;
     }
     ft_print_mat(&main->mat);
-    ft_fill_coor_vert(mat_coor, main);
 }
 
-void    ft_fill_coor_vert(t_coor *mat_coor, t_main *main)
+void    ft_fill_coor_vert(t_main *main)
 {
     int x;
     int y;
@@ -341,21 +328,18 @@ void    ft_fill_coor_vert(t_coor *mat_coor, t_main *main)
     {
         while (y < main->mat.size_y)
         {
-            mat_coor[mod].x1 = (x + (cos(main->mat.rad) * main->mat.mat[y][x]));
-            mat_coor[mod].y1 = (y + (sin(main->mat.rad) * main->mat.mat[y][x]));
+            if (y + 1 >= main->mat.size_y)
+                break ;
+            if(main->mat.mat[y][x] != 0 && main->mat.mat[y + 1][x] != 0)
+                ft_depth_modifier_v(main, y, x, mod);
+            else if (main->mat.mat[y][x] == 0 && main->mat.mat[y + 1][x] != 0)
+                ft_depth_modifier_v1(main, y, x, mod);
+            else if (main->mat.mat[y][x] != 0 && main->mat.mat[y + 1][x] == 0)
+                ft_depth_modifier_v2(main, y, x, mod);
+            else
+                ft_normal_v(main, y, x, mod);
             y++;
-            if (y >= main->mat.size_y)
-                break;
-            mat_coor[mod].x2 = (x + (cos(main->mat.rad) * main->mat.mat[y][x]));
-            mat_coor[mod].y2 = (y + (sin(main->mat.rad) * main->mat.mat[y][x]));
-            mat_coor = ft_rotate_coor(mat_coor, &main->mat, mod);
-            mat_coor[mod].x1 = mat_coor[mod].x1 * main->mat.zoom + main->mat.center_x + main->mat.trans_x;
-            mat_coor[mod].y1 = mat_coor[mod].y1 * main->mat.zoom + main->mat.center_y + main->mat.trans_y;
-            mat_coor[mod].x2 = mat_coor[mod].x2 * main->mat.zoom + main->mat.center_x + main->mat.trans_x;
-            mat_coor[mod].y2 = mat_coor[mod].y2 * main->mat.zoom + main->mat.center_y + main->mat.trans_y;
-            main->rat = *ft_color(&main->rat, &main->mat, x, y);
-            ft_trace_line(mod, mat_coor, &main->rat, *main);
-            main->rat = *ft_clean_rat(&main->rat);
+            ft_clean_rat(main);
             mod++;
         }
         mod++;
@@ -385,6 +369,7 @@ int main(int argc, char **argv)
     if (argc == 2)
     {
         main.mat = ft_parsing(argv);
+        main.mat_coor = ft_init_coor(&main.mat);
         main.mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "KIOWINDOW", false);
         // main.mlx_win = mlx_new_window(main.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "KIOWINDOW");
         main.img = mlx_new_image(main.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -398,6 +383,7 @@ int main(int argc, char **argv)
         // main.mat.trans_x = 0;
 
         ft_fill_coor_hori(&main);
+        ft_fill_coor_vert(&main);
         mlx_image_to_window(main.mlx, main.img, 0, 0);
         mlx_key_hook(main.mlx, &handle_input, &main);
         mlx_loop(main.mlx);

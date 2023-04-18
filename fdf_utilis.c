@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 16:20:05 by kfortin           #+#    #+#             */
-/*   Updated: 2023/03/21 18:08:21 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/18 13:24:40 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,9 @@ void	ft_free_tab(void **tab)
 	}
 }
 
-void	ft_error_long(char **tab, int i, int *tab_int)
-{
-	if (ft_atol(tab[i]) > 2147483647 || atol(tab[i]) < -2147483648)
-	{
-		ft_free_tab2((void **)tab);
-		ft_write_error(tab_int);
-	}
-}
-
-void	ft_write_error()
-{
-	write(2, "Error\n", 6);
-	exit(0);
-}
-
 int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] && s2[i])
@@ -87,4 +72,17 @@ int	ft_strcmp(char *s1, char *s2)
 		i++;
 	}
 	return (s1[i] - s2[i]);
+}
+
+int	ft_tchek_rect(t_mat *mat, t_list *map)
+{
+	if (!map)
+		return (0);
+	while (map->next != NULL)
+	{
+		if (ft_maplen(map->str) != mat->size_x)
+			return (0);
+		map = (struct s_list *)map->next;
+	}
+	return (1);
 }

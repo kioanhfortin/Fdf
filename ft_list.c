@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:36:37 by kfortin           #+#    #+#             */
-/*   Updated: 2023/03/22 16:01:47 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/18 16:32:03 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,13 @@ t_list	*ft_lstnew(void *str)
 	return (newnode);
 }
 
-// int	ft_lstsize(t_list *lst)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!lst)
-// 		return (0);
-// 	while (lst->next != NULL)
-// 	{
-// 		lst = (struct s_list*)lst->next;
-// 		i++;
-// 	}
-// 	return (i + 1);
-// }
-
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last;
 
 	last = ft_lstlast(*lst);
 	if (*lst)
-		last->next = (struct t_list*)new;
+		last->next = (struct t_list *)new;
 	else
 		*lst = new;
 }
@@ -56,25 +41,26 @@ t_list	*ft_lstlast(t_list *lst)
 		return (lst);
 	while (lst->next != NULL)
 	{
-		lst = (t_list*)lst->next;
+		lst = (t_list *)lst->next;
 	}
 	return (lst);
 }
 
-void	ft_listclear(t_list* head)
+void	ft_listclear(t_list *head)
 {
-    t_list* current = head;
-    t_list* temp;
+	t_list	*current;
+	t_list	*temp;
 
-    while (current != NULL)
+	current = head;
+	while (current != NULL)
 	{
-        temp = current;
+		temp = current;
 		if (current->str)
 			free(current->str);
-        current = (struct s_list *)current->next;
+		current = (struct s_list *)current->next;
 		if (temp)
-        	free(temp);
-    }
+			free(temp);
+	}
 }
 
 // void	ft_listclear(t_list *map)
@@ -109,7 +95,6 @@ void	ft_listclear(t_list* head)
 // 		*lst = cleanlst;
 // 	}
 // }
-
 
 // void	ft_lstdelone(t_list *lst)
 // {

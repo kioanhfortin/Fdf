@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:58:27 by kfortin           #+#    #+#             */
-/*   Updated: 2023/04/18 17:09:35 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/19 17:36:20 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_isspace(char c)
 	return (0);
 }
 
-int	ft_str_is_alpha(char *str, int i)
+int	ft_c_is_alpha(char *str, int i)
 {
 	if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')))
 		return (0);

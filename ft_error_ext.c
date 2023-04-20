@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 13:19:40 by kfortin           #+#    #+#             */
-/*   Updated: 2023/04/18 13:24:01 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/19 17:43:26 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,10 @@ void	ft_write_error(void)
 	exit(0);
 }
 
-char	*ft_copy_ext(char *argv, int i)
+void	ft_error_alpha(void **tab)
 {
-	char	*s1;
-	int		k;
-	int		j;
-
-	s1 = NULL;
-	k = i;
-	j = 0;
-	while (argv[k++])
-		j++;
-	s1 = ft_calloc(j + 1, sizeof(char));
-	if (!s1)
-		return (NULL);
-	k = i;
-	j = 0;
-	while (argv[k])
-		s1[j++] = argv[k++];
-	return (s1);
+	ft_free_tab2((void **)tab);
+	ft_write_error();
 }
 
 void	ft_tchek_ext(char *argv)

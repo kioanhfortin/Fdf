@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:02:57 by kfortin           #+#    #+#             */
-/*   Updated: 2023/04/18 17:38:36 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/19 20:59:48 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,14 @@ int					ft_check_hexa(char *tab);
 int					ft_size_w(char *str, char *charset, int i);
 int					ft_atoi_base(char *str, char *base);
 long				ft_atol(char *str);
-int					ft_str_is_alpha(char *str, int i);
+int					ft_c_is_alpha(char *str, int i);
 int					ft_is_charset(char c, char *charset);
 void				ft_free_tab(void **tab);
 void				ft_free_tab2(void **tab);
 void				ft_error_long(char *tab);
 void				ft_error_int(int tab);
 void				ft_write_error(void);
+void				ft_error_alpha(void **tab);
 int					ft_strcmp(char *s1, char *s2);
 int					ft_maplen(char *str);
 t_list				*ft_mapwid(char *argv, t_mat *mat, t_list *map);
@@ -123,6 +124,8 @@ t_coor				*ft_init_coor(t_mat *mat);
 void				ft_init_struct(t_mat *mat);
 int					ft_tchek_rect(t_mat *mat, t_list *map);
 void				ft_tchek_ext(char *argv);
+int					ft_str_is_alpha(char *str);
+char				*ft_copy_ext(char *argv, int i);
 
 double				ft_deg_rad(int deg);
 void				ft_center(t_main *main);
@@ -137,7 +140,7 @@ void				ft_trace_line(int mod, t_coor *mat_coor, t_rat *rat,
 						t_main main);
 void				ft_declaration_rat(int mod, t_coor *mat_coor, t_rat *rat);
 void				ft_check_frame(t_rat *rat, t_main main);
-// t_rat				*ft_test(t_rat *rat, t_mat mat);
+int					get_rgba(int r, int g, int b, int a);
 
 t_coor				*ft_rotate_coor(t_coor *mat_coor, t_mat *mat, int mod);
 t_coor				*ft_rotate_coor_2(t_coor *mat_coor, int mod);

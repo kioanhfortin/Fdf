@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 14:09:57 by kfortin           #+#    #+#             */
-/*   Updated: 2023/04/18 16:28:44 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/19 17:46:15 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,25 @@ void	handle_mouse(mouse_key_t button, action_t action, modifier_key_t mods,
 		zoom_in(main);
 	if (button == 1)
 		zoom_out(main);
+}
+
+char	*ft_copy_ext(char *argv, int i)
+{
+	char	*s1;
+	int		k;
+	int		j;
+
+	s1 = NULL;
+	k = i;
+	j = 0;
+	while (argv[k++])
+		j++;
+	s1 = ft_calloc(j + 1, sizeof(char));
+	if (!s1)
+		return (NULL);
+	k = i;
+	j = 0;
+	while (argv[k])
+		s1[j++] = argv[k++];
+	return (s1);
 }

@@ -6,7 +6,7 @@
 /*   By: kfortin <kfortin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 16:10:55 by kfortin           #+#    #+#             */
-/*   Updated: 2023/04/18 17:41:28 by kfortin          ###   ########.fr       */
+/*   Updated: 2023/04/19 17:47:01 by kfortin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ int	*ft_split(char *str, char *charset)
 
 int	*ft_split_2(char **tab, int i, int *tab_int)
 {
+	if (ft_str_is_alpha(tab[i]) == 1)
+		ft_error_alpha((void **)tab);
 	if (ft_check_hexa(tab[i]) == 1)
 	{
 		ft_error_int(ft_atoi_base(tab[i], "123456789ABCDEF"));
@@ -102,4 +104,19 @@ int	*ft_split_2(char **tab, int i, int *tab_int)
 		tab_int[i] = (int)ft_atol(tab[i]);
 	}
 	return (tab_int);
+}
+
+int	ft_str_is_alpha(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!((str[i] >= 'A' && str[i] <= 'Z')
+				|| (str[i] >= 'a' && str[i] <= 'z')))
+			return (0);
+		i++;
+	}
+	return (1);
 }
